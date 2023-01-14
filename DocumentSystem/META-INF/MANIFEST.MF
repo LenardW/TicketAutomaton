@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: DocumentSystem
-Bundle-SymbolicName: DocumentSystem
-Bundle-Version: 1.0.0.qualifier
-Automatic-Module-Name: DocumentSystem
-Bundle-RequiredExecutionEnvironment: JavaSE-15
