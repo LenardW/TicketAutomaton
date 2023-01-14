@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TicketAutomaton
+Bundle-SymbolicName: TicketAutomaton
+Bundle-Version: 1.0.0.qualifier
+Import-Package: org.osgi.framework;version="1.10.0",
+ org.osgi.service.component.annotations;version="1.5.0"
+Automatic-Module-Name: TicketAutomaton
+Bundle-RequiredExecutionEnvironment: JavaSE-15
