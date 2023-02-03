@@ -3,5 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: PrintingSystem
 Bundle-SymbolicName: PrintingSystem
 Bundle-Version: 1.0.0.qualifier
+Import-Package: org.osgi.framework;version="1.10.0"
 Automatic-Module-Name: PrintingSystem
 Bundle-RequiredExecutionEnvironment: JavaSE-15
