@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ComponentServiceBus
+Bundle-SymbolicName: ComponentServiceBus
+Bundle-Version: 1.0.0.qualifier
+Import-Package: org.osgi.framework;version="1.10.0",
+ org.osgi.service.event;version="1.4.1"
+Automatic-Module-Name: ComponentServiceBus
+Bundle-RequiredExecutionEnvironment: JavaSE-18
+Export-Package: de.leuphana.cosa.componentservicebus.structure
