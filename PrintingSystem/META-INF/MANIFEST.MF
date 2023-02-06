@@ -3,8 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: PrintingSystem
 Bundle-SymbolicName: PrintingSystem
 Bundle-Version: 1.0.0.qualifier
+Export-Package: de.leuphana.cosa.printingsystem.behaviour.service,
+ de.leuphana.cosa.printingsystem.behaviour.service.event
 Import-Package: org.osgi.framework;version="1.10.0",
- org.osgi.service.component.annotations;version="1.5.0"
-Require-Bundle: ComponentServiceBus;bundle-version="1.0.0"
+ org.osgi.service.component.annotations;version="1.5.0",
+ org.osgi.service.log;version="1.5.0"
+Require-Bundle: Component;bundle-version="1.0.0",
+ org.junit,
+ junit-jupiter-api
 Automatic-Module-Name: PrintingSystem
-Bundle-RequiredExecutionEnvironment: JavaSE-15
+Bundle-RequiredExecutionEnvironment: JavaSE-18

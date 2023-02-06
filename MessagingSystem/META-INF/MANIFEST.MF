@@ -4,4 +4,4 @@ Bundle-Name: MessagingSystem
 Bundle-SymbolicName: MessagingSystem
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: MessagingSystem
-Bundle-RequiredExecutionEnvironment: JavaSE-15
+Bundle-RequiredExecutionEnvironment: JavaSE-18

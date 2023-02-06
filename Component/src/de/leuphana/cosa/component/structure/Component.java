@@ -1,7 +1,7 @@
-package de.leuphana.cosa.componentservicebus.structure;
+package de.leuphana.cosa.component.structure;
 
 //import com.google.common.eventbus.EventBus;
-import org.osgi.service.event.;	
+import org.osgi.service.event.EventAdmin;	
 
 public abstract class Component {
 	

@@ -14,8 +14,8 @@ import de.leuphana.swa.messagingsystem.behaviour.service.MessagingCommandService
 import de.leuphana.swa.messagingsystem.behaviour.service.event.SendableEvent;
 import de.leuphana.swa.messagingsystem.behaviour.service.event.SendableEventListener;
 import de.leuphana.swa.messagingsystem.behaviour.service.event.SendableEventService;
-import de.leuphana.swa.printingsystem.behaviour.service.PrintingCommandService;
-import de.leuphana.swa.printingsystem.behaviour.service.event.PrintableEventService;
+import de.leuphana.cosa.printingsystem.behaviour.service.PrintingCommandService;
+import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEventService;
 
 public class ComponentServiceBus implements ComponentServiceBusService {
 

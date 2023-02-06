@@ -4,4 +4,4 @@ Bundle-Name: PricingSystem
 Bundle-SymbolicName: PricingSystem
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: PricingSystem
-Bundle-RequiredExecutionEnvironment: JavaSE-15
+Bundle-RequiredExecutionEnvironment: JavaSE-18
