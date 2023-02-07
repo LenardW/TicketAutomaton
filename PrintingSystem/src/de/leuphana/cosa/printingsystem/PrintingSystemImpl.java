@@ -2,6 +2,8 @@ package de.leuphana.cosa.printingsystem;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,7 +33,12 @@ public class PrintingSystemImpl extends Component implements PrintingCommandServ
 	
 //	private Set<PrintableEventListener> printableEventListeners;
 
+	private Map<String, PrintReport> properties;
+	private String topic;
+	
 	public PrintingSystemImpl() {
+		properties = new HashMap<String, PrintReport>();
+		
 //		printableEventListeners = new HashSet<PrintableEventListener>();
 
 		// Wie? / konkrete Klasse
@@ -57,8 +64,12 @@ public class PrintingSystemImpl extends Component implements PrintingCommandServ
 		printReport.setPrintDate(LocalDate.now());
 		printReport.setPrintSuccessful(true);
 		
+		
+		topic = "de/leuphana/cosa/printableEvent";
+		properties.put("printReport", printReport);
+		
 		// TODO Refactor into seperate method
-		PrintableEvent printableEvent = new PrintableEvent(printReport);
+		PrintableEvent printableEvent = new PrintableEvent(topic, properties);
 
 //		for (PrintableEventListener printableEventListener : printableEventListeners) {
 //			printableEventListener.onPrintableExcuted(printableEvent);

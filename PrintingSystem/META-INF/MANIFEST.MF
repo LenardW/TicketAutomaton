@@ -7,7 +7,9 @@ Export-Package: de.leuphana.cosa.printingsystem.behaviour.service,
  de.leuphana.cosa.printingsystem.behaviour.service.event
 Import-Package: org.osgi.framework;version="1.10.0",
  org.osgi.service.component.annotations;version="1.5.0",
- org.osgi.service.log;version="1.5.0"
+ org.osgi.service.event;version="1.4.1",
+ org.osgi.service.log;version="1.5.0",
+ org.slf4j;version="1.7.30"
 Require-Bundle: Component;bundle-version="1.0.0",
  org.junit,
  junit-jupiter-api
