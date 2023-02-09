@@ -33,11 +33,11 @@ public class PrintingSystemImpl extends Component implements PrintingCommandServ
 	
 //	private Set<PrintableEventListener> printableEventListeners;
 
-	private Map<String, PrintReport> properties;
-	private String topic;
+	private Map<String, PrintReport> eventProperties;
+	private String eventTopic;
 	
 	public PrintingSystemImpl() {
-		properties = new HashMap<String, PrintReport>();
+		eventProperties = new HashMap<String, PrintReport>();
 		
 //		printableEventListeners = new HashSet<PrintableEventListener>();
 
@@ -65,17 +65,17 @@ public class PrintingSystemImpl extends Component implements PrintingCommandServ
 		printReport.setPrintSuccessful(true);
 		
 		
-		topic = "de/leuphana/cosa/printableEvent";
-		properties.put("printReport", printReport);
+		eventTopic = "de/leuphana/cosa/printableEvent";
+		eventProperties.put("printReport", printReport);
 		
 		// TODO Refactor into seperate method
-		PrintableEvent printableEvent = new PrintableEvent(topic, properties);
+		PrintableEvent printableEvent = new PrintableEvent(eventTopic, eventProperties);
 
 //		for (PrintableEventListener printableEventListener : printableEventListeners) {
 //			printableEventListener.onPrintableExcuted(printableEvent);
 //		}
 		
-		super.post(printableEvent);
+		super.post(eventTopic, eventProperties);
 
 		return printReport;
 	}

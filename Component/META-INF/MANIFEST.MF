@@ -6,4 +6,5 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: de.leuphana.cosa.component.structure
 Import-Package: org.osgi.service.event;version="1.4.1"
 Automatic-Module-Name: Component
+Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-18

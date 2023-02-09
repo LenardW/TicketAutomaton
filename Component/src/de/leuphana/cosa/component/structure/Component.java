@@ -1,16 +1,20 @@
 package de.leuphana.cosa.component.structure;
 
+import java.util.Map;
+
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
-//import com.google.common.eventbus.EventBus;
 import org.osgi.service.event.EventAdmin;	
 
+//@Component
 public abstract class Component {
 	
-	//private EventBus eventBus;
+	@Reference(service = EventAdmin.class)
 	private EventAdmin eventAdmin;
 	
+	
 	public Component() {
-		//eventBus = new EventBus();
 		//eventAdmin = new EventAdmin();
 	}
 	
@@ -20,8 +24,9 @@ public abstract class Component {
 	public abstract String getCommandServicePath();
 	public abstract String getEventServicePath();
 	
-	protected void post(Event event) {
-		//eventAdmin.postEvent(event);
+	@Activate
+	protected void post(String eventTopic, Map<String, ?> properties) {
+		eventAdmin.postEvent(new Event(eventTopic, properties));
 	}
 	
 	protected void register(Object object) {

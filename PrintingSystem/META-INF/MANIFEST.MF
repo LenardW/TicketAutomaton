@@ -14,4 +14,6 @@ Require-Bundle: Component;bundle-version="1.0.0",
  org.junit,
  junit-jupiter-api
 Automatic-Module-Name: PrintingSystem
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: de.leuphana.cosa.printingsystem.PrintingSystemActivator
 Bundle-RequiredExecutionEnvironment: JavaSE-18
