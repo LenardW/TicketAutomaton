@@ -14,11 +14,12 @@ public class PrintingSystemActivator implements BundleActivator{
 
 	public void start(BundleContext bundleContext) throws Exception {
 		PrintingSystemActivator.context = bundleContext;
-		System.out.println("PrintingSystem starting");
+		System.out.println("PrintingSystem started");
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
 		PrintingSystemActivator.context = null;
+		System.out.println("PrintingSystem stoped");
 	}
 
 }

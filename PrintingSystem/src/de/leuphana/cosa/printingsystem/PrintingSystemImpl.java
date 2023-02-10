@@ -7,7 +7,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import de.leuphana.cosa.component.structure.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+
+import de.leuphana.cosa.component.structure.AbstractComponent;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintConfiguration;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintReport;
 import de.leuphana.cosa.printingsystem.behaviour.service.Printable;
@@ -20,7 +26,8 @@ import de.leuphana.cosa.printingsystem.structure.PrintJob;
 import de.leuphana.cosa.printingsystem.structure.PrintJobQueue;
 import de.leuphana.cosa.printingsystem.structure.Printer;
 
-public class PrintingSystemImpl extends Component implements PrintingCommandService, PrintableEventService {
+@Component
+public class PrintingSystemImpl extends AbstractComponent implements PrintingCommandService, PrintableEventService {
 	// Interfaces
 	// Collection (Sammlung von Objekten)(Was?) ==> Set[keine doppelten Objekte],
 	// List[kann auch doppelten Objekte enthalten], Map[organisiert nach
@@ -33,10 +40,16 @@ public class PrintingSystemImpl extends Component implements PrintingCommandServ
 	
 //	private Set<PrintableEventListener> printableEventListeners;
 
+	//@Reference
+	//EventAdmin eventAdmin;
+	
 	private Map<String, PrintReport> eventProperties;
 	private String eventTopic;
 	
 	public PrintingSystemImpl() {
+		
+		
+		
 		eventProperties = new HashMap<String, PrintReport>();
 		
 //		printableEventListeners = new HashSet<PrintableEventListener>();
@@ -76,6 +89,8 @@ public class PrintingSystemImpl extends Component implements PrintingCommandServ
 //		}
 		
 		super.post(eventTopic, eventProperties);
+		
+		//eventAdmin.postEvent(new Event(eventTopic, eventProperties));
 
 		return printReport;
 	}
@@ -134,5 +149,15 @@ public class PrintingSystemImpl extends Component implements PrintingCommandServ
 		
 		super.unregister(printableEventListener);
 	}
+	
+//	void registerEventAdmin(EventAdmin admin) {
+//        this.eventAdmin = admin;
+//
+//    }
+//
+//    void unregisterEventAdmin(EventAdmin admin) {
+//        this.eventAdmin = null;
+//
+//    }
 
 }

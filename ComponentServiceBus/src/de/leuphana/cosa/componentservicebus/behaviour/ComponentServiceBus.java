@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.google.common.eventbus.Subscribe;
 
-import de.leuphana.cosa.component.structure.Component;
+import de.leuphana.cosa.component.structure.AbstractComponent;
 import de.leuphana.cosa.componentservicebus.structure.adapter.ManageableToPrintableAdapter;
 import de.leuphana.cosa.componentservicebus.structure.adapter.PrintReportToSendableAdapter;
 import de.leuphana.swa.documentsystem.behaviour.service.DocumentCommandService;
@@ -21,18 +21,18 @@ public class ComponentServiceBus implements ComponentServiceBusService {
 
 	private static boolean isMessageDelivered = false;
 
-	private Map<String, Component> componentMap;
+	private Map<String, AbstractComponent> componentMap;
 	private Map<String, String> commandServices;
 	private Map<String, String> eventServices;
 
 	public ComponentServiceBus() {
-		componentMap = new HashMap<String, Component>();
+		componentMap = new HashMap<String, AbstractComponent>();
 		commandServices = new HashMap<String, String>();
 		eventServices = new HashMap<String, String>();
 	}
 
 	@Override
-	public void registerComponent(Component component) {
+	public void registerComponent(AbstractComponent component) {
 		componentMap.put(component.getComponentName(), component);
 		commandServices.put(component.getComponentName(),
 				component.getCommandServicePath() + "." + component.getCommandServiceName());
@@ -46,8 +46,8 @@ public class ComponentServiceBus implements ComponentServiceBusService {
 		// welchem Event aufgerufen wird!!!
 
 		// Erzeugung des manageableToPrintableAdapter
-		Component sourceComponent = componentMap.get("DocumentSystem");
-		Component targetComponent = componentMap.get("PrintingSystem");
+		AbstractComponent sourceComponent = componentMap.get("DocumentSystem");
+		AbstractComponent targetComponent = componentMap.get("PrintingSystem");
 
 		// Später Nutzung von Java Reflection API um generisch sourceComponent und
 		// targetComponent zuzuweisen
@@ -67,7 +67,7 @@ public class ComponentServiceBus implements ComponentServiceBusService {
 	@Override
 	public boolean sellTicket(String start, String end) {
 		
-		Component component = componentMap.get("MessagingSystem");
+		AbstractComponent component = componentMap.get("MessagingSystem");
 		((SendableEventService)component).addSendableEventListener(new SendableEventListener() {
 			
 			@Subscribe
@@ -80,7 +80,7 @@ public class ComponentServiceBus implements ComponentServiceBusService {
 		});
 		
 		// Später statt sellTicket lose Koppelung durch Event-Delegation
-		Component startComponent = componentMap.get("DocumentSystem");
+		AbstractComponent startComponent = componentMap.get("DocumentSystem");
 		((DocumentCommandService) startComponent).createDocument(start + " " + end);
 
 		return isMessageDelivered;

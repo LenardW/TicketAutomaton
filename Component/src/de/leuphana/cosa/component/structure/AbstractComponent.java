@@ -7,14 +7,14 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;	
 
-//@Component
-public abstract class Component {
+
+public abstract class AbstractComponent {
 	
-	@Reference(service = EventAdmin.class)
-	private EventAdmin eventAdmin;
+	@Reference
+	EventAdmin eventAdmin;
 	
 	
-	public Component() {
+	public AbstractComponent() {
 		//eventAdmin = new EventAdmin();
 	}
 	

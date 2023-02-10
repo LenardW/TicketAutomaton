@@ -1,10 +1,10 @@
 package de.leuphana.cosa.componentservicebus.behaviour;
 
-import de.leuphana.cosa.component.structure.Component;
+import de.leuphana.cosa.component.structure.AbstractComponent;
 
 public interface ComponentServiceBusService {
 
-	void registerComponent(Component component);
+	void registerComponent(AbstractComponent component);
 
 	void configureComponentConnections();
 
