@@ -19,7 +19,7 @@ public class PrintingSystemActivator implements BundleActivator{
 
 	public void stop(BundleContext bundleContext) throws Exception {
 		PrintingSystemActivator.context = null;
-		System.out.println("PrintingSystem stoped");
+		System.out.println("PrintingSystem stopped");
 	}
 
 }
