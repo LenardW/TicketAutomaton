@@ -1,4 +1,4 @@
-package de.leuphana.cosa.printingsystem;
+package de.leuphana.cosa.printingsystem.behaviour;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -47,8 +47,6 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 	private String eventTopic;
 	
 	public PrintingSystemImpl() {
-		
-		
 		
 		eventProperties = new HashMap<String, PrintReport>();
 		
@@ -111,30 +109,30 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 		return Arrays.stream(PrintFormat.values()).map(Enum::name).collect(Collectors.toSet());
 	}
 
-	@Override
-	public String getCommandServiceName() {
-		return PrintingCommandService.class.getName();
-	}
-
-	@Override
-	public String getEventServiceName() {
-		return PrintableEventService.class.getName();
-	}
-
-	@Override
-	public String getCommandServicePath() {
-		return PrintingCommandService.class.getPackageName();
-	}
-
-	@Override
-	public String getEventServicePath() {
-		return PrintableEventService.class.getPackageName();
-	}
-
-	@Override
-	public String getComponentName() {
-		return "PrintingSystem";
-	}
+//	@Override
+//	public String getCommandServiceName() {
+//		return PrintingCommandService.class.getName();
+//	}
+//
+//	@Override
+//	public String getEventServiceName() {
+//		return PrintableEventService.class.getName();
+//	}
+//
+//	@Override
+//	public String getCommandServicePath() {
+//		return PrintingCommandService.class.getPackageName();
+//	}
+//
+//	@Override
+//	public String getEventServicePath() {
+//		return PrintableEventService.class.getPackageName();
+//	}
+//
+//	@Override
+//	public String getComponentName() {
+//		return "PrintingSystem";
+//	}
 
 	@Override
 	public void addPrintableEventListener(PrintableEventListener printableEventListener) {

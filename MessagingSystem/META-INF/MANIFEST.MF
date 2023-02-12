@@ -3,5 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: MessagingSystem
 Bundle-SymbolicName: MessagingSystem
 Bundle-Version: 1.0.0.qualifier
+Import-Package: org.slf4j;version="1.7.30"
+Require-Bundle: Component;bundle-version="1.0.0"
 Automatic-Module-Name: MessagingSystem
 Bundle-RequiredExecutionEnvironment: JavaSE-18
