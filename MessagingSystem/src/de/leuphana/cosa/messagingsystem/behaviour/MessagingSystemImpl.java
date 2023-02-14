@@ -1,9 +1,16 @@
 package de.leuphana.cosa.messagingsystem.behaviour;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.event.EventAdmin;
 
 import de.leuphana.cosa.component.structure.AbstractComponent;
 import de.leuphana.cosa.messagingsystem.behaviour.service.DeliveryReport;
@@ -18,12 +25,21 @@ import de.leuphana.cosa.messagingsystem.structure.messagetypefactory.InternalMes
 import de.leuphana.cosa.messagingsystem.structure.messagingfactory.AbstractMessagingFactory;
 import de.leuphana.cosa.messagingsystem.structure.messagingprotocol.MessagingProtocol;
 
+@Component(immediate = true)
 public class MessagingSystemImpl extends AbstractComponent implements MessagingCommandService, SendableEventService {
 	private Logger logger;
+	private static EventAdmin eventAdmin;
+	private Map<String, DeliveryReport> eventProperties;
+	private String eventTopic;
 
+	public MessagingSystemImpl() {
+		logger = LoggerFactory.getLogger(this.getClass());
+		eventProperties = new HashMap<String, DeliveryReport>();
+	}
+	
+	
 	@Override
 	public DeliveryReport sendMessage(Sendable sendable) {
-		logger = LoggerFactory.getLogger(this.getClass());
 		
 		InternalMessageType internalMessageType = InternalMessagingTypeFactory.createInternalMessageType(sendable.getMessageType());
 		
@@ -44,12 +60,26 @@ public class MessagingSystemImpl extends AbstractComponent implements MessagingC
 		deliveryReport.setDeliveryDate(LocalDate.now());
 		deliveryReport.setDeliverySuccessful(true);
 		
-		SendableEvent sendableEvent = new SendableEvent(deliveryReport);
+		eventTopic = "de/leuphana/cosa/sendableEvent";
+		eventProperties.put("deliveryReport", deliveryReport);
 		
-		super.post(sendableEvent);
+		SendableEvent sendableEvent = new SendableEvent(eventTopic, eventProperties);
+		
+		eventAdmin.postEvent(sendableEvent);
+		logger.info("sendableEvent occoured");
 
 		return deliveryReport;
 	}
+	
+	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
+			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "unsetEventAdmin")
+    public void setEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = eventAdmin;
+    }
+	
+	public void unsetEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = null;
+    }
 
 	@Override
 	public String getCommandServiceName() {

@@ -160,19 +160,9 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 
 	@Override
 	public void removePrintableEventListener(PrintableEventListener printableEventListener) {
-		// printableEventListeners.remove(printableEventListener);
+//		 printableEventListeners.remove(printableEventListener);
 		
 		super.unregister(printableEventListener);
 	}
-	
-//	void registerEventAdmin(EventAdmin admin) {
-//        this.eventAdmin = admin;
-//
-//    }
-//
-//    void unregisterEventAdmin(EventAdmin admin) {
-//        this.eventAdmin = null;
-//
-//    }
 
 }

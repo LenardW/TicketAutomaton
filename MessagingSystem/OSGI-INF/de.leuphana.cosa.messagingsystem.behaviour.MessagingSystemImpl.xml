@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="de.leuphana.cosa.messagingsystem.behaviour.MessagingSystemImpl">
+   <service>
+      <provide interface="de.leuphana.cosa.messagingsystem.behaviour.service.MessagingCommandService"/>
+      <provide interface="de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEventService"/>
+   </service>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="unsetEventAdmin"/>
+   <implementation class="de.leuphana.cosa.messagingsystem.behaviour.MessagingSystemImpl"/>
+</scr:component>

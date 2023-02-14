@@ -1,6 +1,5 @@
 package de.leuphana.cosa.printingsystem.behaviour.service.event;
 
-//import java.util.EventObject;
 import java.util.Map;
 
 import org.osgi.service.event.Event;
