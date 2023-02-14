@@ -8,10 +8,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.leuphana.cosa.component.structure.AbstractComponent;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintConfiguration;
@@ -26,7 +30,7 @@ import de.leuphana.cosa.printingsystem.structure.PrintJob;
 import de.leuphana.cosa.printingsystem.structure.PrintJobQueue;
 import de.leuphana.cosa.printingsystem.structure.Printer;
 
-@Component
+@Component(immediate = true)
 public class PrintingSystemImpl extends AbstractComponent implements PrintingCommandService, PrintableEventService {
 	// Interfaces
 	// Collection (Sammlung von Objekten)(Was?) ==> Set[keine doppelten Objekte],
@@ -40,11 +44,11 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 	
 //	private Set<PrintableEventListener> printableEventListeners;
 
-	//@Reference
-	//EventAdmin eventAdmin;
-	
+	private static EventAdmin eventAdmin;
 	private Map<String, PrintReport> eventProperties;
 	private String eventTopic;
+	
+	private Logger logger;
 	
 	public PrintingSystemImpl() {
 		
@@ -60,6 +64,8 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 		printJobQueue = PrintJobQueue.getInstance();
 		printJobQueue.addPrinter(new Printer(PrintFormat.A4));
 		printJobQueue.addPrinter(new Printer(PrintFormat.A3));
+		
+		logger = LoggerFactory.getLogger(this.getClass());
 	}
 
 	@Override
@@ -86,12 +92,23 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 //			printableEventListener.onPrintableExcuted(printableEvent);
 //		}
 		
-		super.post(eventTopic, eventProperties);
 		
-		//eventAdmin.postEvent(new Event(eventTopic, eventProperties));
-
+		eventAdmin.postEvent(printableEvent);
+		logger.info("printableEvent occoured");
+		
 		return printReport;
 	}
+	
+	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
+			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "unsetEventAdmin")
+    public void setEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = eventAdmin;
+    }
+	
+	public void unsetEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = null;
+    }
+	
 
 	@Override
 	public Set<String> getSupportedPrintFormats() {
@@ -109,30 +126,30 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 		return Arrays.stream(PrintFormat.values()).map(Enum::name).collect(Collectors.toSet());
 	}
 
-//	@Override
-//	public String getCommandServiceName() {
-//		return PrintingCommandService.class.getName();
-//	}
-//
-//	@Override
-//	public String getEventServiceName() {
-//		return PrintableEventService.class.getName();
-//	}
-//
-//	@Override
-//	public String getCommandServicePath() {
-//		return PrintingCommandService.class.getPackageName();
-//	}
-//
-//	@Override
-//	public String getEventServicePath() {
-//		return PrintableEventService.class.getPackageName();
-//	}
-//
-//	@Override
-//	public String getComponentName() {
-//		return "PrintingSystem";
-//	}
+	@Override
+	public String getCommandServiceName() {
+		return PrintingCommandService.class.getName();
+	}
+
+	@Override
+	public String getEventServiceName() {
+		return PrintableEventService.class.getName();
+	}
+
+	@Override
+	public String getCommandServicePath() {
+		return PrintingCommandService.class.getPackageName();
+	}
+
+	@Override
+	public String getEventServicePath() {
+		return PrintableEventService.class.getPackageName();
+	}
+
+	@Override
+	public String getComponentName() {
+		return "PrintingSystem";
+	}
 
 	@Override
 	public void addPrintableEventListener(PrintableEventListener printableEventListener) {
