@@ -4,6 +4,6 @@
       <provide interface="de.leuphana.cosa.printingsystem.behaviour.service.PrintingCommandService"/>
       <provide interface="de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEventService"/>
    </service>
-   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="unsetEventAdmin"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="resetEventAdmin"/>
    <implementation class="de.leuphana.cosa.printingsystem.behaviour.PrintingSystemImpl"/>
 </scr:component>

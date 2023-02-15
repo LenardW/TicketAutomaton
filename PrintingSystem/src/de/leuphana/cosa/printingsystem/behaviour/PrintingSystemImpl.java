@@ -7,12 +7,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,12 +98,12 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 	}
 	
 	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
-			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "unsetEventAdmin")
+			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "resetEventAdmin")
     public void setEventAdmin(EventAdmin eventAdmin) {
         this.eventAdmin = eventAdmin;
     }
 	
-	public void unsetEventAdmin(EventAdmin eventAdmin) {
+	public void resetEventAdmin(EventAdmin eventAdmin) {
         this.eventAdmin = null;
     }
 	

@@ -10,10 +10,10 @@ import de.leuphana.cosa.componentservicebus.structure.adapter.ManageableToPrinta
 import de.leuphana.cosa.componentservicebus.structure.adapter.PrintReportToSendableAdapter;
 import de.leuphana.swa.documentsystem.behaviour.service.DocumentCommandService;
 import de.leuphana.swa.documentsystem.behaviour.service.event.ManageableEventService;
-import de.leuphana.swa.messagingsystem.behaviour.service.MessagingCommandService;
-import de.leuphana.swa.messagingsystem.behaviour.service.event.SendableEvent;
-import de.leuphana.swa.messagingsystem.behaviour.service.event.SendableEventListener;
-import de.leuphana.swa.messagingsystem.behaviour.service.event.SendableEventService;
+import de.leuphana.cosa.messagingsystem.behaviour.service.MessagingCommandService;
+import de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEvent;
+import de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEventListener;
+import de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEventService;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintingCommandService;
 import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEventService;
 

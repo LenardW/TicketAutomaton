@@ -72,12 +72,12 @@ public class MessagingSystemImpl extends AbstractComponent implements MessagingC
 	}
 	
 	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
-			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "unsetEventAdmin")
+			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "resetEventAdmin")
     public void setEventAdmin(EventAdmin eventAdmin) {
         this.eventAdmin = eventAdmin;
     }
 	
-	public void unsetEventAdmin(EventAdmin eventAdmin) {
+	public void resetEventAdmin(EventAdmin eventAdmin) {
         this.eventAdmin = null;
     }
 

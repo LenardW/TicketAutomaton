@@ -3,5 +3,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DocumentSystem
 Bundle-SymbolicName: DocumentSystem
 Bundle-Version: 1.0.0.qualifier
+Require-Bundle: Component;bundle-version="1.0.0",
+ org.osgi.service.component.annotations;bundle-version="1.5.0",
+ org.junit,
+ junit-jupiter-api
+Import-Package: org.osgi.framework;version="1.10.0",
+ org.osgi.service.event;version="1.4.1",
+ org.slf4j;version="1.7.30"
 Automatic-Module-Name: DocumentSystem
 Bundle-RequiredExecutionEnvironment: JavaSE-18
+Service-Component: OSGI-INF/de.leuphana.cosa.documentsystem.behaviour.DocumentSystemImpl.xml
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: de.leuphana.cosa.documentsystem.DocumentSystemActivator
