@@ -2,9 +2,9 @@ package de.leuphana.cosa.componentservicebus.structure.adapter;
 
 import com.google.common.eventbus.Subscribe;
 
-import de.leuphana.swa.messagingsystem.behaviour.service.MessageType;
-import de.leuphana.swa.messagingsystem.behaviour.service.MessagingCommandService;
-import de.leuphana.swa.messagingsystem.behaviour.service.Sendable;
+import de.leuphana.cosa.messagingsystem.behaviour.service.MessageType;
+import de.leuphana.cosa.messagingsystem.behaviour.service.MessagingCommandService;
+import de.leuphana.cosa.messagingsystem.behaviour.service.Sendable;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintReport;
 import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEvent;
 import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEventListener;
