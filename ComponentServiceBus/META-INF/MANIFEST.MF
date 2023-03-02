@@ -3,7 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ComponentServiceBus
 Bundle-SymbolicName: ComponentServiceBus
 Bundle-Version: 1.0.0.qualifier
-Import-Package: org.osgi.framework;version="1.10.0"
+Import-Package: org.osgi.framework;version="1.10.0",
+ org.osgi.service.event;version="1.4.1",
+ org.slf4j;version="1.7.30"
 Require-Bundle: Component;bundle-version="1.0.0",
  PrintingSystem;bundle-version="1.0.0",
  DocumentSystem;bundle-version="1.0.0",
@@ -12,3 +14,5 @@ Require-Bundle: Component;bundle-version="1.0.0",
  RouteSystem;bundle-version="1.0.0"
 Automatic-Module-Name: ComponentServiceBus
 Bundle-RequiredExecutionEnvironment: JavaSE-18
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/de.leuphana.cosa.componentservicebus.structure.adapter.ManageableToPrintableAdapter.xml

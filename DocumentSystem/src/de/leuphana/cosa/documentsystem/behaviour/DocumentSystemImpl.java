@@ -73,8 +73,8 @@ public class DocumentSystemImpl extends AbstractComponent implements DocumentCom
 		
 		logger.info("Document : " + title + " created!");
 		
-		eventTopic = "de/leuphana/cosa/manageableEvent";
-		eventProperties.put("printReport", document);
+		eventTopic = "de/leuphana/cosa/manageableEvent/DocumentCreated";
+		eventProperties.put("document", document);
 		
 		// TODO Refactor into seperate method
 		ManageableEvent manageableEvent = new ManageableEvent(eventTopic, eventProperties);
