@@ -3,8 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RouteSystem
 Bundle-SymbolicName: RouteSystem
 Bundle-Version: 1.0.0.qualifier
-Import-Package: org.osgi.framework;version="1.10.0"
+Import-Package: org.apache.commons.logging;version="1.2.0",
+ org.apache.commons.logging.impl;version="1.2.0",
+ org.osgi.framework;version="1.10.0",
+ org.osgi.service.log;version="1.5.0",
+ org.slf4j;version="1.7.30"
 Automatic-Module-Name: RouteSystem
+Bundle-Activator: de.leuphana.routesystem.RouteSystemActivator
 Bundle-RequiredExecutionEnvironment: JavaSE-15
 Require-Bundle: org.junit,
  junit-jupiter-api
