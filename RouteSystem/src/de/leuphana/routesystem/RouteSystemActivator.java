@@ -1,11 +1,12 @@
 package de.leuphana.routesystem;
 
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class RouteSystemActivator {
+public class RouteSystemActivator implements BundleActivator{
 
 	
 	private Logger logger;

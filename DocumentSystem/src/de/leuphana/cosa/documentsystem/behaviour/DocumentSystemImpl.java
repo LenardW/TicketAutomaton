@@ -7,6 +7,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ import de.leuphana.cosa.documentsystem.behaviour.service.event.ManageableEventSe
 import de.leuphana.cosa.documentsystem.structure.Document;
 
 @Component(immediate = true)
-public class DocumentSystemImpl extends AbstractComponent implements DocumentCommandService, ManageableEventService {
+public class DocumentSystemImpl implements DocumentCommandService{
 	// Java Collection classes
 	// Interface (Was? - 1): List, Set, Map, Queue
 	// Realisierung: (Wie? - N): ArrayList, LinkedList / HashMap, TreeMap
@@ -31,8 +32,7 @@ public class DocumentSystemImpl extends AbstractComponent implements DocumentCom
 	private Logger logger;
 	
 	private static EventAdmin eventAdmin;
-	private Map<String, Document> eventProperties;
-	private String eventTopic;
+
 
 	public DocumentSystemImpl() {
 //		manageableEventListeners = new HashSet<ManageableEventListener>();
@@ -41,7 +41,7 @@ public class DocumentSystemImpl extends AbstractComponent implements DocumentCom
 		documents = new HashMap<Integer, Document>();
 		logger = LoggerFactory.getLogger(this.getClass());
 		
-		eventProperties = new HashMap<String, Document>();
+
 	}
 
 	@Override
@@ -55,38 +55,23 @@ public class DocumentSystemImpl extends AbstractComponent implements DocumentCom
 
 	@Override
 	public Document createDocument(String title) {
-		Manageable manageable = new Manageable() {
-
-			@Override
-			public String getTitle() {
-				return title;
-			}
-
-			@Override
-			public String getContent() {
-				return "";
-			}
-			
-		};
 		
 		Document document = new Document(title);
-		
 		logger.info("Document : " + title + " created!");
 		
-		eventTopic = "de/leuphana/cosa/manageableEvent/DocumentCreated";
-		eventProperties.put("document", document);
-		
-		// TODO Refactor into seperate method
-		ManageableEvent manageableEvent = new ManageableEvent(eventTopic, eventProperties);
-		
-//		for (ManageableEventListener manageableEventListener : manageableEventListeners) {
-//			manageableEventListener.onManageableCreated(manageableEvent);
-//		}
-		
-		eventAdmin.postEvent(manageableEvent);
-		logger.info("manageableEvent occoured");
-		
+		postDocumentEvent(document);
+
 		return document;
+	}
+	
+	public void postDocumentEvent(Document document) {
+		Map<String, Object> eventProperties = new HashMap<>();
+		eventProperties.put("title", document.getTitel());
+		eventProperties.put("text", document.getText());
+		String eventTopic = "de/leuphana/cosa/document/documentCreated";
+		eventAdmin.postEvent(new Event(eventTopic, eventProperties));//send synchron /post asynchron was ist sinnvoller?
+		logger.info("DocumentCreatedEvent occoured");
+		
 	}
 	
 	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
@@ -99,43 +84,6 @@ public class DocumentSystemImpl extends AbstractComponent implements DocumentCom
         this.eventAdmin = null;
     }
 
-	@Override
-	public void addManageableEventListener(ManageableEventListener manageableEventListener) {
-//		manageableEventListeners.add(manageableEventListener);
-		
-		super.register(manageableEventListener);
-	}
 
-	@Override
-	public void removeManageableEventListener(ManageableEventListener manageableEventListener) {
-//		manageableEventListeners.remove(manageableEventListener);
-		
-		super.unregister(manageableEventListener);
-	}
-
-	@Override
-	public String getCommandServiceName() {
-		return DocumentCommandService.class.getName();
-	}
-
-	@Override
-	public String getEventServiceName() {
-		return ManageableEventService.class.getName();
-	}
-
-	@Override
-	public String getCommandServicePath() {
-		return DocumentCommandService.class.getPackageName();
-	}
-
-	@Override
-	public String getEventServicePath() {
-		return ManageableEventService.class.getPackageName();
-	}
-
-	@Override
-	public String getComponentName() {
-		return "DocumentSystem";
-	}
 	
 }

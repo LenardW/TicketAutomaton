@@ -28,8 +28,8 @@ import de.leuphana.cosa.printingsystem.structure.PrintJob;
 import de.leuphana.cosa.printingsystem.structure.PrintJobQueue;
 import de.leuphana.cosa.printingsystem.structure.Printer;
 
-@Component(immediate = true)
-public class PrintingSystemImpl extends AbstractComponent implements PrintingCommandService, PrintableEventService {
+@Component(immediate = true, service = PrintingCommandService.class)
+public class PrintingSystemImpl implements PrintingCommandService{
 	// Interfaces
 	// Collection (Sammlung von Objekten)(Was?) ==> Set[keine doppelten Objekte],
 	// List[kann auch doppelten Objekte enthalten], Map[organisiert nach
@@ -122,45 +122,6 @@ public class PrintingSystemImpl extends AbstractComponent implements PrintingCom
 		// Pipe&Filter
 		// transformation
 		return Arrays.stream(PrintFormat.values()).map(Enum::name).collect(Collectors.toSet());
-	}
-
-	@Override
-	public String getCommandServiceName() {
-		return PrintingCommandService.class.getName();
-	}
-
-	@Override
-	public String getEventServiceName() {
-		return PrintableEventService.class.getName();
-	}
-
-	@Override
-	public String getCommandServicePath() {
-		return PrintingCommandService.class.getPackageName();
-	}
-
-	@Override
-	public String getEventServicePath() {
-		return PrintableEventService.class.getPackageName();
-	}
-
-	@Override
-	public String getComponentName() {
-		return "PrintingSystem";
-	}
-
-	@Override
-	public void addPrintableEventListener(PrintableEventListener printableEventListener) {
-//		printableEventListeners.add(printableEventListener);
-		
-		super.register(printableEventListener);
-	}
-
-	@Override
-	public void removePrintableEventListener(PrintableEventListener printableEventListener) {
-//		 printableEventListeners.remove(printableEventListener);
-		
-		super.unregister(printableEventListener);
 	}
 
 }

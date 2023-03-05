@@ -9,15 +9,18 @@ import de.leuphana.routesystem.structure.Route;
 public class RouteSystemImpl implements RouteSystemCommandService {
 
 	private HashMap<Integer, String> location = new HashMap<Integer, String>();
-
-
-	@Override
-	public boolean chooseLocations() {
+	
+	public RouteSystemImpl() {
 		location.put(1, "Lueneburg");
 		location.put(2, "Berlin");
 		location.put(3, "Hamburg");
 		location.put(4, "Hannover");
 		location.put(5, "Muenchen");
+	}
+
+
+	@Override
+	public boolean chooseLocations() {
 		System.out.println(
 				"Bitte wählen Sie aus den nachfolgenden Orten einen Startort aus, in dem Sie die entsprechende Zahl eingeben");
 		location.forEach((k, v) -> {
@@ -32,7 +35,6 @@ public class RouteSystemImpl implements RouteSystemCommandService {
 		location.forEach((k, v) -> {
 			System.out.println(k + ": " + v);
 		});
-		Scanner scanner1 = new Scanner(System.in);
 		dataInput = scanner.nextInt();
 		String endLocation = location.get(dataInput);
 		int routeLength = 0;
