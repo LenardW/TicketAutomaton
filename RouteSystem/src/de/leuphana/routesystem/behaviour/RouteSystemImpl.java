@@ -1,16 +1,32 @@
 package de.leuphana.routesystem.behaviour;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.leuphana.routesystem.behaviour.service.RouteSystemCommandService;
 import de.leuphana.routesystem.structure.Route;
-
+@Component(immediate = true)
 public class RouteSystemImpl implements RouteSystemCommandService {
 
 	private HashMap<Integer, String> location = new HashMap<Integer, String>();
 	
+	private static EventAdmin eventAdmin;
+	
+	private Logger logger;
+	
 	public RouteSystemImpl() {
+		logger = LoggerFactory.getLogger(this.getClass());
+		
 		location.put(1, "Lueneburg");
 		location.put(2, "Berlin");
 		location.put(3, "Hamburg");
@@ -20,7 +36,7 @@ public class RouteSystemImpl implements RouteSystemCommandService {
 
 
 	@Override
-	public boolean chooseLocations() {
+	public Route chooseRoute() {
 		System.out.println(
 				"Bitte wählen Sie aus den nachfolgenden Orten einen Startort aus, in dem Sie die entsprechende Zahl eingeben");
 		location.forEach((k, v) -> {
@@ -159,16 +175,32 @@ public class RouteSystemImpl implements RouteSystemCommandService {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + startLocation);
 		}
-//		System.out.println(routeLength);
-		Route route = new Route(startLocation, endLocation, routeLength);
-
 		
-		// TODO Event Admin with Route to adapter
+		Route route = new Route(startLocation, endLocation, routeLength);
+		postRouteEvent(route);
 
-		if (endLocation.isEmpty()) {
-			return false;
-		}
-		return true;
+		return route;
 	}
+	public void postRouteEvent(Route route) {
+		Map<String, Object> eventProperties = new HashMap<>();
+		eventProperties.put("startLocation", route.getStartLocation());
+		eventProperties.put("endLocation", route.getEndLocation());
+		eventProperties.put("routeLength", route.getRouteLength());
+		String eventTopic = "de/leuphana/cosa/routeSystem/routeChoosen";
+		eventAdmin.postEvent(new Event(eventTopic, eventProperties));
+		logger.info("RouteChoosenEvent occoured");
+		
+	}
+	
+	
+	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
+			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "resetEventAdmin")
+    public void setEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = eventAdmin;
+    }
+	
+	public void resetEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = null;
+    }
 
 }

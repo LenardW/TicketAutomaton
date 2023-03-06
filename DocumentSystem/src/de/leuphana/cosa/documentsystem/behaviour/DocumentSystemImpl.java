@@ -68,7 +68,7 @@ public class DocumentSystemImpl implements DocumentCommandService{
 		Map<String, Object> eventProperties = new HashMap<>();
 		eventProperties.put("title", document.getTitel());
 		eventProperties.put("text", document.getText());
-		String eventTopic = "de/leuphana/cosa/document/documentCreated";
+		String eventTopic = "de/leuphana/cosa/documentSystem/documentCreated";
 		eventAdmin.postEvent(new Event(eventTopic, eventProperties));//send synchron /post asynchron was ist sinnvoller?
 		logger.info("DocumentCreatedEvent occoured");
 		

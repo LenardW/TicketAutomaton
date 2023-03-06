@@ -23,7 +23,7 @@ class RouteSystemTest {
 
 	@Test
 	void canLocationsBeSelected() {
-		Assertions.assertTrue(routeSystemService.chooseLocations());
+		Assertions.assertNotNull(routeSystemService.chooseRoute());
 	}
 
 }

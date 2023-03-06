@@ -3,5 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: PricingSystem
 Bundle-SymbolicName: PricingSystem
 Bundle-Version: 1.0.0.qualifier
+Import-Package: org.osgi.service.event;version="1.4.1"
 Automatic-Module-Name: PricingSystem
 Bundle-RequiredExecutionEnvironment: JavaSE-18

@@ -5,14 +5,14 @@ public class Route {
 	public Route(String startLocation, String endLocation, int routeLength) {
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
-		this.routeLengh = routeLength;
+		this.routeLength = routeLength;
 	}
 
 	private String startLocation;
 	
 	private String endLocation;
 	
-	private int routeLengh;
+	private int routeLength;
 	
 	public String getStartLocation() {
 		return startLocation;
@@ -22,8 +22,8 @@ public class Route {
 		return endLocation;
 	}
 
-	public int getRoutLengh() {
-		return routeLengh;
+	public int getRouteLength() {
+		return routeLength;
 	}
 
 

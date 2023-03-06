@@ -24,7 +24,7 @@ public class PrintableEventHadler implements EventHandler{
 	@Override
 	public void handleEvent(Event event) {
 	
-		if (event.getTopic().equals("de/leuphana/cosa/document/documentCreated")) {	
+		if (event.getTopic().equals("de/leuphana/cosa/documentSystem/documentCreated")) {	
 			Printable printable = new Printable() {
 				
 				@Override
@@ -62,6 +62,7 @@ public class PrintableEventHadler implements EventHandler{
 
 			printConfiguration.setPrintFormat(printFormats.get(dataInput));
 			
+			printingCommandService.printDocument(printable, printConfiguration);
 		}
 	}
 
