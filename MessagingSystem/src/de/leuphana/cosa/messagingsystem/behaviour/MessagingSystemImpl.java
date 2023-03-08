@@ -4,21 +4,18 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.event.EventAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.leuphana.cosa.component.structure.AbstractComponent;
 import de.leuphana.cosa.messagingsystem.behaviour.service.DeliveryReport;
 import de.leuphana.cosa.messagingsystem.behaviour.service.MessagingCommandService;
 import de.leuphana.cosa.messagingsystem.behaviour.service.Sendable;
 import de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEvent;
-import de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEventListener;
-import de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEventService;
 import de.leuphana.cosa.messagingsystem.structure.message.Message;
 import de.leuphana.cosa.messagingsystem.structure.messagetypefactory.InternalMessageType;
 import de.leuphana.cosa.messagingsystem.structure.messagetypefactory.InternalMessagingTypeFactory;
@@ -26,7 +23,7 @@ import de.leuphana.cosa.messagingsystem.structure.messagingfactory.AbstractMessa
 import de.leuphana.cosa.messagingsystem.structure.messagingprotocol.MessagingProtocol;
 
 @Component(immediate = true)
-public class MessagingSystemImpl extends AbstractComponent implements MessagingCommandService, SendableEventService {
+public class MessagingSystemImpl implements MessagingCommandService {
 	private Logger logger;
 	private static EventAdmin eventAdmin;
 	private Map<String, DeliveryReport> eventProperties;
@@ -81,38 +78,5 @@ public class MessagingSystemImpl extends AbstractComponent implements MessagingC
         this.eventAdmin = null;
     }
 
-	@Override
-	public String getCommandServiceName() {
-		return MessagingCommandService.class.getName();
-	}
 
-	@Override
-	public String getEventServiceName() {
-		return SendableEventService.class.getName();
-	}
-
-	@Override
-	public String getCommandServicePath() {
-		return MessagingCommandService.class.getPackageName();
-	}
-
-	@Override
-	public String getEventServicePath() {
-		return SendableEventService.class.getPackageName();
-	}
-
-	@Override
-	public String getComponentName() {
-		return "MessagingSystem";
-	}
-
-	@Override
-	public void addSendableEventListener(SendableEventListener sendableEventListener) {
-		super.register(sendableEventListener);
-	}
-
-	@Override
-	public void removeSendableEventListener(SendableEventListener sendableEventListener) {
-		super.unregister(sendableEventListener);
-	}
 }

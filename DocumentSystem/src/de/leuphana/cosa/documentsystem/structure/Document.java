@@ -5,12 +5,11 @@ public class Document  {
 	
 	private Integer id;
 	// TODO delete because of name parameter
-	private String titel;
+	private String title;
 	private String text;
-	private DocumentFormat documentFormat;
 
 	public Document(String titel) {
-		this.titel = titel;
+		this.title = titel;
 		id = ++lastId;
 	}
 
@@ -18,12 +17,8 @@ public class Document  {
 		return id;
 	}
 	
-	public String getTitel() {
-		return titel;
-	}
-
-	public void setDocumentFormat(DocumentFormat documentFormat) {
-		this.documentFormat = documentFormat;
+	public String getTitle() {
+		return title;
 	}
 
 	public String getText() {

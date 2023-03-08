@@ -15,14 +15,11 @@ import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.leuphana.cosa.component.structure.AbstractComponent;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintConfiguration;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintReport;
 import de.leuphana.cosa.printingsystem.behaviour.service.Printable;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintingCommandService;
 import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEvent;
-import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEventListener;
-import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEventService;
 import de.leuphana.cosa.printingsystem.structure.PrintFormat;
 import de.leuphana.cosa.printingsystem.structure.PrintJob;
 import de.leuphana.cosa.printingsystem.structure.PrintJobQueue;

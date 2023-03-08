@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="de.leuphana.routesystem.behaviour.RouteSystemImpl">
    <service>
-      <provide interface="de.leuphana.routesystem.behaviour.service.RouteSystemCommandService"/>
+      <provide interface="de.leuphana.routesystem.behaviour.service.RouteCommandService"/>
    </service>
    <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="resetEventAdmin"/>
    <implementation class="de.leuphana.routesystem.behaviour.RouteSystemImpl"/>

@@ -13,10 +13,10 @@ import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.leuphana.routesystem.behaviour.service.RouteSystemCommandService;
+import de.leuphana.routesystem.behaviour.service.RouteCommandService;
 import de.leuphana.routesystem.structure.Route;
 @Component(immediate = true)
-public class RouteSystemImpl implements RouteSystemCommandService {
+public class RouteSystemImpl implements RouteCommandService {
 
 	private HashMap<Integer, String> location = new HashMap<Integer, String>();
 	

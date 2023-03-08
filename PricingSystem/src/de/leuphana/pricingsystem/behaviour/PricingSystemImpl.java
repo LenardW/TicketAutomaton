@@ -1,13 +1,33 @@
 package de.leuphana.pricingsystem.behaviour;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.leuphana.pricingsystem.behaviour.service.Priceable;
 import de.leuphana.pricingsystem.behaviour.service.PricingCommandService;
 import de.leuphana.pricingsystem.structure.PriceCalculation;
 
+@Component(immediate = true)
 public class PricingSystemImpl implements PricingCommandService{
 
+	private static EventAdmin eventAdmin;
+	
+	private Logger logger;
+	
+	public PricingSystemImpl() {
+		logger = LoggerFactory.getLogger(this.getClass());
+	}
+	
 	@Override
 	public PriceCalculation calculatePrice(Priceable priceable) {
 		
@@ -29,12 +49,12 @@ public class PricingSystemImpl implements PricingCommandService{
 		}
 		case 2: {
 			price = normalPrice * 0.75f;
-			priceGroup ="Günstiger Reisen-Tarif";
+			priceGroup ="Guenstiger Reisen-Tarif";
 			break;
 		}
 		case 3: {
 			price = normalPrice * 0.50f;
-			priceGroup ="Schnäppchen-Tarif";
+			priceGroup ="Schnaeppchen-Tarif";
 			break;
 		}
 		default:
@@ -42,11 +62,33 @@ public class PricingSystemImpl implements PricingCommandService{
 		}
 		
 		PriceCalculation priceCalculation = new PriceCalculation(priceGroup, price, distance);
-		
-		
-		
-		
+		System.out.println("Das Ticket kostet: "+price+"€");
+		//TODO price round to second place
+		postPricingEvent(priceCalculation, priceable);
 		return priceCalculation;
 	}
-
+	
+	public void postPricingEvent(PriceCalculation priceCalculation, Priceable priceable) {
+		Map<String, Object> eventProperties = new HashMap<>();
+		eventProperties.put("priceGroup", priceCalculation.getPriceGroup());
+		eventProperties.put("price", priceCalculation.getPrice());
+		eventProperties.put("distance", priceCalculation.getDistance());
+		eventProperties.put("startLocation", priceable.getStartLocation());
+		eventProperties.put("endLocation", priceable.getEndLocation());
+		String eventTopic = "de/leuphana/cosa/priceSystem/priceCalculated";
+		eventAdmin.postEvent(new Event(eventTopic, eventProperties));
+		logger.info("PriceCalculatedEvent occoured");
+	}
+	
+	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
+			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "resetEventAdmin")
+    public void setEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = eventAdmin;
+    }
+	
+	public void resetEventAdmin(EventAdmin eventAdmin) {
+        this.eventAdmin = null;
+    }
+	
+	
 }

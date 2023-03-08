@@ -1,6 +1,10 @@
 package de.leuphana.cosa.documentsystem.behaviour.service;
 
 public interface Manageable {
-	String getTitle();
-	String getContent();
+	String getStartLocation();
+	String getEndLocation();
+	String getPriceGroup();
+	float getPrice();
+	float getDistance();
+	
 }

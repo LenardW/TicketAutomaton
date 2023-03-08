@@ -12,13 +12,13 @@ import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.leuphana.cosa.component.structure.AbstractComponent;
 import de.leuphana.cosa.documentsystem.behaviour.service.DocumentCommandService;
 import de.leuphana.cosa.documentsystem.behaviour.service.Manageable;
-import de.leuphana.cosa.documentsystem.behaviour.service.event.ManageableEvent;
-import de.leuphana.cosa.documentsystem.behaviour.service.event.ManageableEventListener;
-import de.leuphana.cosa.documentsystem.behaviour.service.event.ManageableEventService;
+import de.leuphana.cosa.documentsystem.structure.CheaperTicker;
 import de.leuphana.cosa.documentsystem.structure.Document;
+import de.leuphana.cosa.documentsystem.structure.NormalTicket;
+import de.leuphana.cosa.documentsystem.structure.TicketDocumentTemplate;
+import de.leuphana.cosa.documentsystem.structure.VeryCheapTicket;
 
 @Component(immediate = true)
 public class DocumentSystemImpl implements DocumentCommandService{
@@ -48,7 +48,7 @@ public class DocumentSystemImpl implements DocumentCommandService{
 	public Boolean addDocument(Document document) {
 		documents.put(document.getId(), document);
 
-		logger.info("Document with title " + document.getTitel() + " added!");
+		logger.info("Document with title " + document.getTitle() + " added!");
 
 		return documents.containsKey(document.getId());
 	}
@@ -64,9 +64,11 @@ public class DocumentSystemImpl implements DocumentCommandService{
 		return document;
 	}
 	
+	
+	
 	public void postDocumentEvent(Document document) {
 		Map<String, Object> eventProperties = new HashMap<>();
-		eventProperties.put("title", document.getTitel());
+		eventProperties.put("title", document.getTitle());
 		eventProperties.put("text", document.getText());
 		String eventTopic = "de/leuphana/cosa/documentSystem/documentCreated";
 		eventAdmin.postEvent(new Event(eventTopic, eventProperties));//send synchron /post asynchron was ist sinnvoller?
@@ -83,6 +85,30 @@ public class DocumentSystemImpl implements DocumentCommandService{
 	public void resetEventAdmin(EventAdmin eventAdmin) {
         this.eventAdmin = null;
     }
+
+	@Override
+	public Document createTicket(Manageable manageable) {
+		TicketDocumentTemplate ticket;
+		switch (manageable.getPriceGroup()) {
+		case "Normal-Tarif": {
+			ticket = new NormalTicket(manageable.getStartLocation(), manageable.getEndLocation(), manageable.getDistance(), manageable.getPrice());
+			break;
+		}
+		case "Guenstiger Reisen-Tarif": {
+			ticket = new CheaperTicker(manageable.getStartLocation(), manageable.getEndLocation(), manageable.getDistance(), manageable.getPrice());
+			break;
+		}
+		case "Schnaeppchen-Tarif": {
+			ticket = new VeryCheapTicket(manageable.getStartLocation(), manageable.getEndLocation(), manageable.getDistance(), manageable.getPrice());
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + manageable.getPriceGroup());
+		}
+		postDocumentEvent(ticket);
+		
+		return ticket;
+	}
 
 
 	

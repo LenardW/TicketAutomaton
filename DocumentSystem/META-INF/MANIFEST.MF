@@ -5,8 +5,7 @@ Bundle-SymbolicName: DocumentSystem
 Bundle-Version: 1.0.0.qualifier
 Export-Package: de.leuphana.cosa.documentsystem.behaviour.service,
  de.leuphana.cosa.documentsystem.behaviour.service.event
-Require-Bundle: Component;bundle-version="1.0.0",
- org.osgi.service.component.annotations;bundle-version="1.5.0",
+Require-Bundle: org.osgi.service.component.annotations;bundle-version="1.5.0",
  org.junit,
  junit-jupiter-api
 Import-Package: org.osgi.framework;version="1.10.0",

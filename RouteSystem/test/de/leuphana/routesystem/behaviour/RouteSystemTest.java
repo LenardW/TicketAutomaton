@@ -1,4 +1,4 @@
-package de.leuphana.routesystem.test;
+package de.leuphana.routesystem.behaviour;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -6,11 +6,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import de.leuphana.routesystem.behaviour.RouteSystemImpl;
-import de.leuphana.routesystem.behaviour.service.RouteSystemCommandService;
+import de.leuphana.routesystem.behaviour.service.RouteCommandService;
 
 class RouteSystemTest {
 
-	private static RouteSystemCommandService routeSystemService;
+	private static RouteCommandService routeSystemService;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {	
