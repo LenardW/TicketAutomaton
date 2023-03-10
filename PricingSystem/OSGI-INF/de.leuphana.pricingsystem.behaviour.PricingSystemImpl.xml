@@ -3,6 +3,6 @@
    <service>
       <provide interface="de.leuphana.pricingsystem.behaviour.service.PricingCommandService"/>
    </service>
-   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="resetEventAdmin"/>
+   <reference bind="setEventAdmin" interface="org.osgi.service.event.EventAdmin" name="EventAdmin"/>
    <implementation class="de.leuphana.pricingsystem.behaviour.PricingSystemImpl"/>
 </scr:component>

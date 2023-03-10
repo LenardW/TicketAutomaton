@@ -11,6 +11,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,6 @@ import de.leuphana.cosa.printingsystem.behaviour.service.PrintConfiguration;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintReport;
 import de.leuphana.cosa.printingsystem.behaviour.service.Printable;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintingCommandService;
-import de.leuphana.cosa.printingsystem.behaviour.service.event.PrintableEvent;
 import de.leuphana.cosa.printingsystem.structure.PrintFormat;
 import de.leuphana.cosa.printingsystem.structure.PrintJob;
 import de.leuphana.cosa.printingsystem.structure.PrintJobQueue;
@@ -77,18 +77,11 @@ public class PrintingSystemImpl implements PrintingCommandService{
 		printReport.setPrintSuccessful(true);
 		
 		
-		eventTopic = "de/leuphana/cosa/printableEvent";
+		eventTopic = "de/leuphana/cosa/printingSystem/printableEvent";
 		eventProperties.put("printReport", printReport);
 		
-		// TODO Refactor into seperate method
-		PrintableEvent printableEvent = new PrintableEvent(eventTopic, eventProperties);
-
-//		for (PrintableEventListener printableEventListener : printableEventListeners) {
-//			printableEventListener.onPrintableExcuted(printableEvent);
-//		}
 		
-		
-		eventAdmin.postEvent(printableEvent);
+		eventAdmin.postEvent(new Event(eventTopic, eventProperties));
 		logger.info("printableEvent occoured");
 		
 		return printReport;
@@ -107,17 +100,6 @@ public class PrintingSystemImpl implements PrintingCommandService{
 
 	@Override
 	public Set<String> getSupportedPrintFormats() {
-		// transformation
-//		Set<String> supportedPrintFormatAsString = new HashSet<String>();
-//		
-//		for (PrintFormat printFormat : PrintFormat.values()) {
-//			supportedPrintFormatAsString.add(printFormat.toString());
-//		}
-
-//		return supportedPrintFormatAsString;
-
-		// Pipe&Filter
-		// transformation
 		return Arrays.stream(PrintFormat.values()).map(Enum::name).collect(Collectors.toSet());
 	}
 

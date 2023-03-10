@@ -12,7 +12,8 @@ public class Printer {
 	}
 
 	public boolean executePrintJob(PrintJob printJob) {
-		// Simulation of printing
+		//Output Printing
+		System.out.println(printJob.getPrintable().getContent());
 		printJob.changePrintJobState(PrintJobAction.PRINT);
 
 		return true;

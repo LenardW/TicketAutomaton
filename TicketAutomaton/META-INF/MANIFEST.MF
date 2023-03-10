@@ -4,6 +4,10 @@ Bundle-Name: TicketAutomaton
 Bundle-SymbolicName: TicketAutomaton
 Bundle-Version: 1.0.0.qualifier
 Import-Package: org.osgi.framework;version="1.10.0",
- org.osgi.service.component.annotations;version="1.5.0"
+ org.osgi.service.component.annotations;version="1.5.0",
+ org.slf4j;version="1.7.30"
+Require-Bundle: org.osgi.service.event;bundle-version="1.4.1"
 Automatic-Module-Name: TicketAutomaton
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: de.leuphana.cosa.ticketautomaton.behaviour.TicketAutomatonImpl
 Bundle-RequiredExecutionEnvironment: JavaSE-18

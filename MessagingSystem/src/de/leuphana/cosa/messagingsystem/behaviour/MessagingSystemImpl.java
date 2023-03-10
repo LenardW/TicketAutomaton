@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import de.leuphana.cosa.messagingsystem.behaviour.service.DeliveryReport;
 import de.leuphana.cosa.messagingsystem.behaviour.service.MessagingCommandService;
 import de.leuphana.cosa.messagingsystem.behaviour.service.Sendable;
-import de.leuphana.cosa.messagingsystem.behaviour.service.event.SendableEvent;
 import de.leuphana.cosa.messagingsystem.structure.message.Message;
 import de.leuphana.cosa.messagingsystem.structure.messagetypefactory.InternalMessageType;
 import de.leuphana.cosa.messagingsystem.structure.messagetypefactory.InternalMessagingTypeFactory;
@@ -57,13 +56,11 @@ public class MessagingSystemImpl implements MessagingCommandService {
 		deliveryReport.setDeliveryDate(LocalDate.now());
 		deliveryReport.setDeliverySuccessful(true);
 		
-		eventTopic = "de/leuphana/cosa/sendableEvent";
-		eventProperties.put("deliveryReport", deliveryReport);
-		
-		SendableEvent sendableEvent = new SendableEvent(eventTopic, eventProperties);
-		
-		eventAdmin.postEvent(sendableEvent);
-		logger.info("sendableEvent occoured");
+//		eventTopic = "de/leuphana/cosa/sendableEvent";
+//		eventProperties.put("deliveryReport", deliveryReport);
+//				
+//		eventAdmin.postEvent(new Event(eventTopic, eventProperties));
+//		logger.info("sendableEvent occoured");
 
 		return deliveryReport;
 	}

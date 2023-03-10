@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -21,6 +22,8 @@ import de.leuphana.pricingsystem.structure.PriceCalculation;
 public class PricingSystemImpl implements PricingCommandService{
 
 	private static EventAdmin eventAdmin;
+	
+	private BundleContext context;
 	
 	private Logger logger;
 	
@@ -80,15 +83,23 @@ public class PricingSystemImpl implements PricingCommandService{
 		logger.info("PriceCalculatedEvent occoured");
 	}
 	
-	@Reference(name = "EventAdmin", policy = ReferencePolicy.DYNAMIC, cardinality = 
-			ReferenceCardinality.MANDATORY, bind = "setEventAdmin",unbind = "resetEventAdmin")
+	@Reference
     public void setEventAdmin(EventAdmin eventAdmin) {
         this.eventAdmin = eventAdmin;
     }
 	
-	public void resetEventAdmin(EventAdmin eventAdmin) {
-        this.eventAdmin = null;
-    }
+//	public void resetEventAdmin(EventAdmin eventAdmin) {
+//        this.eventAdmin = null;
+//    }
+	
+//	@Reference
+//	public void setBundleContext(BundleContext context) {
+//		this.context = context;
+//	}
+//	public void resetBundleContext(BundleContext context) {
+//		this.context = null;
+//	}
+	
 	
 	
 }
