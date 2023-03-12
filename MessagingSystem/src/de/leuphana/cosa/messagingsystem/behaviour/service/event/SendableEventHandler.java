@@ -22,7 +22,7 @@ public class SendableEventHandler implements EventHandler{
 
 				@Override
 				public String getContent() {
-					return (String) event.getProperty("title") +"\n"+ event.getProperty("text");
+					return (String) event.getProperty("text");
 				}
 
 				@Override
@@ -38,6 +38,11 @@ public class SendableEventHandler implements EventHandler{
 				@Override
 				public String getReceiver() {
 					return "kunde.kauft@etwas.de";
+				}
+
+				@Override
+				public String getTitle() {
+					return (String) event.getProperty("title");
 				}
 				
 			};

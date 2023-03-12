@@ -48,7 +48,7 @@ public class MessagingSystemImpl implements MessagingCommandService {
 		messageProtocol.transfer(message);
 		messageProtocol.close();
 
-		String deliveryConfirmationText = "Message: " + sendable.getContent() + " transported via " + sendable.getMessageType();
+		String deliveryConfirmationText = "Message: " + sendable.getTitle() +  " to: "+sendable.getReceiver()+" transported via " + sendable.getMessageType();
 		logger.info(deliveryConfirmationText);
 		
 		DeliveryReport deliveryReport = new DeliveryReport();

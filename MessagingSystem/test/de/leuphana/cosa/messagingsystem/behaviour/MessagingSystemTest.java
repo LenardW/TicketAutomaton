@@ -39,6 +39,11 @@ class MessagingSystemTest {
 			public String getContent() {
 				return "This is content content!";
 			}
+
+			@Override
+			public String getTitle() {
+				return "This is a title";
+			}
 		};
 	}
 

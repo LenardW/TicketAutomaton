@@ -11,6 +11,8 @@ import org.osgi.service.event.EventHandler;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintConfiguration;
 import de.leuphana.cosa.printingsystem.behaviour.service.Printable;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintingCommandService;
+import de.leuphana.cosa.printingsystem.behaviour.service.exceptions.UnsupportedPrintFormatException;
+import de.leuphana.cosa.printingsystem.structure.PrintFormat;
 
 public class PrintableEventHadler implements EventHandler{
 	
@@ -52,17 +54,26 @@ public class PrintableEventHadler implements EventHandler{
 				}
 			};
 			
-			List<String> printFormats = new ArrayList<>(printingCommandService.getSupportedPrintFormats());
-			System.out.println("Druckformat wählen");
-			printFormats.forEach((v) -> {
-				System.out.println(printFormats.indexOf(v) + ": " + v);
-			});
-			Scanner scanner = new Scanner(System.in);
-			Integer dataInput = scanner.nextInt();
+//			List<String> printFormats = new ArrayList<>(printingCommandService.getSupportedPrintFormats());
+//			System.out.println("Druckformat wählen");
+//			printFormats.forEach((v) -> {
+//				System.out.println(printFormats.indexOf(v) + ": " + v);
+//			});
+//			Scanner scanner = new Scanner(System.in);
+//			Integer dataInput = scanner.nextInt();
 
-			printConfiguration.setPrintFormat(printFormats.get(dataInput));
+//			printConfiguration.setPrintFormat(printFormats.get(dataInput));
+			printConfiguration.setPrintFormat("A4");
 			
-			printingCommandService.printDocument(printable, printConfiguration);
+			try {
+				printingCommandService.printDocument(printable, printConfiguration);
+			} catch (UnsupportedPrintFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

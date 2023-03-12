@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintConfiguration;
 import de.leuphana.cosa.printingsystem.behaviour.service.Printable;
 import de.leuphana.cosa.printingsystem.behaviour.service.PrintingCommandService;
+import de.leuphana.cosa.printingsystem.behaviour.service.exceptions.UnsupportedPrintFormatException;
 
 class PrintingSystemTest {
 
@@ -62,7 +63,7 @@ class PrintingSystemTest {
 	}
 
 	@Test
-	void canDocumentBePrinted() {
+	void canDocumentBePrinted() throws Exception {
 		Assertions.assertTrue(printingSystem.printDocument(printable, printConfiguration).isPrintSuccessful());
 	}
 

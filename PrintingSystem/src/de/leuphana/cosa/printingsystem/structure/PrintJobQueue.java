@@ -38,7 +38,7 @@ public class PrintJobQueue {
 		printersMap.put(printer.getPrintFormat(), printer);
 	}
 	
-	public void addPrintJob(PrintJob printJob) {
+	public void addPrintJob(PrintJob printJob) throws Exception {
 		queue.add(printJob);
 		printJob.changePrintJobState(PrintJobAction.QUEUE);
 		

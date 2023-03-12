@@ -1,5 +1,9 @@
 package de.leuphana.cosa.documentsystem.behaviour;
 
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,14 +14,22 @@ import de.leuphana.cosa.documentsystem.behaviour.service.DocumentCommandService;
 import de.leuphana.cosa.documentsystem.behaviour.service.Manageable;
 import de.leuphana.cosa.documentsystem.structure.Document;
 
-class DocumentSystemTest {
+public class DocumentSystemTest {
 
 	private static DocumentCommandService documentSystem;
 	private static Document document;
 	private static Manageable manageable;
 	
+	private static Logger logger = Logger.getLogger(DocumentSystemTest.class.getName());
+    static FileHandler fh;
+	
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
+		fh = new FileHandler("LogFile.log"); 
+		logger.addHandler(fh);
+		SimpleFormatter formatter = new SimpleFormatter();  
+        fh.setFormatter(formatter);  
+		
 		documentSystem = new DocumentSystemImpl();
 		document = new Document("New document");
 		manageable = new Manageable() {
@@ -61,6 +73,7 @@ class DocumentSystemTest {
 	@Test
 	public void canTicketBeCreated() {
 		Document document = documentSystem.createTicket(manageable);
+		logger.info(document.getText());
 		System.out.println(document.getText());
 		Assertions.assertNotNull(document);
 	}

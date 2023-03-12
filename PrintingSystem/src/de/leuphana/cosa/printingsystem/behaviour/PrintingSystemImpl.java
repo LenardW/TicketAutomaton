@@ -64,7 +64,7 @@ public class PrintingSystemImpl implements PrintingCommandService{
 	}
 
 	@Override
-	public PrintReport printDocument(Printable printable, PrintConfiguration printConfiguration) {
+	public PrintReport printDocument(Printable printable, PrintConfiguration printConfiguration) throws Exception {
 		// TODO später in der Queue prüfen, ob DocumentFormat korrekt ist
 		// TODO prüfen, über Queue, ob PrintJob auch gedruckt wurde (Exceptions)
 		PrintJob printJob = new PrintJob(printable, printConfiguration);
