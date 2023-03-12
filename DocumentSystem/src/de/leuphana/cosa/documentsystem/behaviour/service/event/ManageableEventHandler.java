@@ -16,7 +16,7 @@ private DocumentCommandService documentCommandService;
 	
 	@Override
 	public void handleEvent(Event event) {
-		if (event.getTopic().equals("de/leuphana/cosa/priceSystem/priceCalculated")) {
+		if (event.getTopic().equals("de/leuphana/cosa/pricingSystem/priceCalculated")) {
 			Manageable manageable = new Manageable() {
 
 				@Override

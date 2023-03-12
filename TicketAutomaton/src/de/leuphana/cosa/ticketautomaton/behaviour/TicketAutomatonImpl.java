@@ -39,7 +39,7 @@ public class TicketAutomatonImpl implements BundleActivator{
 		}
 		
 		eventProperties = new HashMap<String, Object>();
-		eventTopic = "de/leuphana/cosa/TicketAutomation/startTicketSelling";
+		eventTopic = "de/leuphana/cosa/ticketAutomaton/startTicketSelling";
 		eventAdmin.postEvent(new Event(eventTopic,eventProperties));
 		
 	}
@@ -50,9 +50,4 @@ public class TicketAutomatonImpl implements BundleActivator{
 		
 	}
 
-	
-//	@Reference
-//    public void setEventAdmin(EventAdmin eventAdmin) {
-//        this.eventAdmin = eventAdmin;
-//    }
 }

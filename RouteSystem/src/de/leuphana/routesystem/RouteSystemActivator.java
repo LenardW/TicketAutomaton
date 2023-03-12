@@ -32,7 +32,7 @@ public class RouteSystemActivator implements BundleActivator{
 		logger.info("RouteSystem started");
 		routeSystemImpl = new RouteSystemImpl();
 		
-		String[] topics = new String[] {"de/leuphana/cosa/TicketAutomation/startTicketSelling"};
+		String[] topics = new String[] {"de/leuphana/cosa/ticketAutomaton/startTicketSelling"};
 		Dictionary<String, Object> eventHandlerProps = new Hashtable<>();
 		eventHandlerProps.put(EventConstants.EVENT_TOPIC, topics);
 		

@@ -15,7 +15,7 @@ public class StartingEventHandler implements EventHandler{
 
 	@Override
 	public void handleEvent(Event event) {
-		if (event.getTopic().equals("de/leuphana/cosa/TicketAutomation/startTicketSelling")) {
+		if (event.getTopic().equals("de/leuphana/cosa/ticketAutomaton/startTicketSelling")) {
 			routeCommandService.chooseRoute();
 		}
 	}

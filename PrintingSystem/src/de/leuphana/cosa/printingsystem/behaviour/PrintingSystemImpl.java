@@ -25,7 +25,7 @@ import de.leuphana.cosa.printingsystem.structure.PrintJob;
 import de.leuphana.cosa.printingsystem.structure.PrintJobQueue;
 import de.leuphana.cosa.printingsystem.structure.Printer;
 
-@Component(immediate = true, service = PrintingCommandService.class)
+@Component(immediate = true)
 public class PrintingSystemImpl implements PrintingCommandService{
 	// Interfaces
 	// Collection (Sammlung von Objekten)(Was?) ==> Set[keine doppelten Objekte],

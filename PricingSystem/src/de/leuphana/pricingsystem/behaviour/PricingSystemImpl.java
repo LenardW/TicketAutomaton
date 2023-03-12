@@ -78,7 +78,7 @@ public class PricingSystemImpl implements PricingCommandService{
 		eventProperties.put("distance", priceCalculation.getDistance());
 		eventProperties.put("startLocation", priceable.getStartLocation());
 		eventProperties.put("endLocation", priceable.getEndLocation());
-		String eventTopic = "de/leuphana/cosa/priceSystem/priceCalculated";
+		String eventTopic = "de/leuphana/cosa/pricingSystem/priceCalculated";
 		eventAdmin.postEvent(new Event(eventTopic, eventProperties));
 		logger.info("PriceCalculatedEvent occoured");
 	}
