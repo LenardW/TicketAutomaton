@@ -20,7 +20,7 @@ public class Printer {
 	}
 
 	public boolean executePrintJob(PrintJob printJob) throws Exception {
-		fh = new FileHandler("LogFile.log");
+		fh = new FileHandler("Ticketkaufinformation.log");
 		logger.addHandler(fh);
 		SimpleFormatter formatter = new SimpleFormatter();  
         fh.setFormatter(formatter); 
