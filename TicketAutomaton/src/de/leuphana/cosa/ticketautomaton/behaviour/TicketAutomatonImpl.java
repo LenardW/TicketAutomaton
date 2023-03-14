@@ -12,7 +12,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//@Component(immediate = true)
+@Component(immediate = true)
 public class TicketAutomatonImpl implements BundleActivator{
 	
 	private Logger logger;
