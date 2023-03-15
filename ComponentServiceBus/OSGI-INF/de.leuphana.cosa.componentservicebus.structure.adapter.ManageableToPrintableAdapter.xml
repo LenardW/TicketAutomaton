@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="de.leuphana.cosa.componentservicebus.structure.adapter.ManageableToPrintableAdapter">
-   <property name="event.topics" value="de/leuphana/cosa/manageableEvent/DocumentCreated"/>
-   <service>
-      <provide interface="ManageableEventListener"/>
-   </service>
-   <implementation class="de.leuphana.cosa.componentservicebus.structure.adapter.ManageableToPrintableAdapter"/>
-</scr:component>
